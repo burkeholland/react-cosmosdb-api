@@ -5,19 +5,24 @@ module.exports = function(context, req) {
   try {
     mongodb.connect();
     const docquery = Hero.find({}).read();
+
+    context.log('docquery');
+
     docquery
       .exec()
       .then(heroes => {
+        context.log(heroes);
+
         context.res = {
-          body: heroes
+          body: 'ok'
         };
 
         context.done();
       })
       .catch(err => {
         context.res = {
-          status: 500,
-          body: err.message
+          status: 400,
+          body: 'something went wrong'
         };
 
         context.done();
@@ -27,6 +32,6 @@ module.exports = function(context, req) {
       body: error
     };
 
-    context.done();
+    context.done;
   }
 };
