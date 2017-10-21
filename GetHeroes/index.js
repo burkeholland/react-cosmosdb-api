@@ -1,7 +1,5 @@
-// const Hero = require('../hero-model');
-// const mongodb = require('../mongodb');
-
-const MongoClient = require('mongodb');
+const Hero = require('../hero-model');
+const mongodb = require('../mongodb');
 
 module.exports = function(context, req) {
   try {
