@@ -1,1 +1,3 @@
-db.heros.update({ id: 1 }, { id: 1, name: 'ok', saying: 'you got it man!' });
+// db.heros.update({ id: 1 }, { id: 1, name: 'ok', saying: 'you got it man!' });
+
+db.heros.findOneAndDelete({ "id": "2" })

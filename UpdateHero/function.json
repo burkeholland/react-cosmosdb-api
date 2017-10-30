@@ -1,23 +1,17 @@
 {
- "disabled": false,
- "bindings": [
-  {
-   "authLevel": "function",
-   "type": "httpTrigger",
-   "direction": "in",
-   "name": "req",
-   "methods": [
-    "put"
-   ]
-  },
-  {
-   "type": "http",
-   "direction": "out",
-   "name": "res"
-  }
- ],
- "_originalEntryPoint": false,
- "_originalScriptFile": "index.js",
- "scriptFile": "../.funcpack/index.js",
- "entryPoint": "UpdateHero"
+  "disabled": false,
+  "bindings": [
+    {
+      "authLevel": "function",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": ["put"]
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    }
+  ]
 }

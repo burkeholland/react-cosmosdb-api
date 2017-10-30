@@ -1,1 +1,2 @@
-db.heros.find({});
+db.heros.remove({ id: 2 })
+

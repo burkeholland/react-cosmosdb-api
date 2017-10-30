@@ -1,17 +1,16 @@
-const heroService = require('../hero-service');
+var MongoClient = require('mongodb').MongoClient;
 
-module.exports = async function(context, req) {
-  try {
-    let hero = await heroService.destroy(req);
-
-    context.res = {
-      // status: 200, /* Defaults to 200 */
-      body: hero
-    };
-  } catch (error) {
-    context.res = {
-      status: 400,
-      body: error.message
-    };
-  }
+module.exports = function(context, req) {
+  MongoClient.connect(process.env.CosmosDBConnectionString, (err, db) => {
+    if (err) throw err;
+    let heroId = parseInt(req.query.id);
+    db.collection('heros').remove({ id: heroId }, (err, result) => {
+      if (err) throw err;
+      context.res = {
+        body: JSON.stringify(result)
+      };
+      db.close();
+      context.done();
+    });
+  });
 };

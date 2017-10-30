@@ -1,9 +1,7 @@
-[
-  {
-    "_id": "59eb531f231e5405c607fc9e",
-    "id": 1,
-    "name": "Burke Again",
-    "saying": "OMG",
-    "__v": 0
+{
+  "result": {
+    "_t": "DeleteResponse",
+    "ok": 1,
+    "n": 1
   }
-]
+}
