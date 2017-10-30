@@ -1,37 +1,49 @@
-const Hero = require('../hero-model');
-const mongodb = require('../mongodb');
+// var MongoClient = require('mongodb').MongoClient;
+
+// module.exports = function(context, req) {
+//   MongoClient.connect(process.env.CosmosDBConnectionString, function(err, db) {
+//     if (err) throw err;
+
+//     db
+//       .collection('heros')
+//       .find({})
+//       .toArray((err, result) => {
+//         if (err) throw err;
+
+//         result.forEach(item => {
+//           delete item._id;
+//         });
+
+//         context.res = {
+//           body: JSON.parse(JSON.stringify(result))
+//         };
+//         db.close();
+//         context.done();
+//       });
+//   });
+// };
+
+var MongoClient = require('mongodb').MongoClient;
 
 module.exports = function(context, req) {
-  try {
-    mongodb.connect();
-    const docquery = Hero.find({}).read();
+  MongoClient.connect(process.env.CosmosDBConnectionString, function(err, db) {
+    if (err) throw err;
 
-    context.log('docquery');
+    let hero = ({ id, name, saying } = req.body);
 
-    docquery
-      .exec()
-      .then(heroes => {
-        context.log(heroes);
+    db.heros.update(
+      { id: 1 },
+      { id: 1, name: 'ok', saying: 'you got it man!' },
+      (err, heros) => {
+        context.log(heros);
 
+        if (err) throw err;
         context.res = {
-          body: 'ok'
+          body: hero
         };
-
+        db.close();
         context.done();
-      })
-      .catch(err => {
-        context.res = {
-          status: 400,
-          body: 'something went wrong'
-        };
-
-        context.done();
-      });
-  } catch (error) {
-    context.res = {
-      body: error
-    };
-
-    context.done;
-  }
+      }
+    );
+  });
 };

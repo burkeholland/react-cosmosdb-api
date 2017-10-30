@@ -1,17 +1,26 @@
-const heroService = require('../hero-service');
+var MongoClient = require('mongodb').MongoClient;
 
-module.exports = async function(context, req) {
-  try {
-    let hero = await heroService.create(req);
+module.exports = function (context, req) {
 
-    context.res = {
-      // status: 200, /* Defaults to 200 */
-      body: hero
-    };
-  } catch (error) {
-    context.res = {
-      status: 400,
-      body: error.message
-    };
-  }
-};
+  MongoClient.connect(process.env.CosmosDBConnectionString, function (err, db) {
+    if (err) throw err;
+
+    let = hero = { id, name, saying } = req.body;
+
+    db
+      .collection('heroes')
+      .insertOne({
+        id: hero.id,
+        name: hero.name,
+        saying: hero.saying
+      },
+      function (err, heros) {
+        if (err) throw err;
+        context.res = {
+          body: hero
+        };
+        db.close();
+        context.done();
+      });
+  });
+}
